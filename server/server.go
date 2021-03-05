@@ -4,6 +4,13 @@ Package Kong/go-pdk/server implements an embedded plugin server.
 To use, add a main() function:
 
     func main () {
+      flag.Parse()
+
+	  if *help {
+		flag.Usage()
+	  	os.Exit(2)
+	  }
+
       server.StartServer(New, Version, Priority)
     }
 
@@ -27,16 +34,6 @@ var (
 	dump = flag.Bool("dump", false, "Dump info about plugins")
 	help = flag.Bool("help", false, "Show usage info")
 )
-
-func init() {
-	flag.Parse()
-
-	if *help {
-		flag.Usage()
-		os.Exit(2)
-	}
-}
-
 
 func getName() (name string, err error) {
 	execPath, err := os.Executable()
